@@ -1,0 +1,42 @@
+
+main:
+  chain: chain_test #选择的链路
+
+message_get:
+  system: on #整个监听系统开启或关闭，on or off
+  #前端框架
+  ui_tkinter: true
+  ui_streamlit: false #ui界面是否使用streamlit
+
+  #文本
+  is_text: true #是否启用响应监听
+  text_send: 你好哈哈哈 #文本输入是否开启
+  #摄像头
+  is_pic: true #是否启用响应监听
+  pic_interval_time: 5 #间隔多少秒一次图像记录
+  pic_window_width: 720 #窗口尺寸
+  pic_window_height: 520
+  #声音
+  is_voice: false #是否启用响应监听
+  voice_interval_time: 10 #每隔多少秒做一轮语音识别（语音转文本）
+
+  #屏幕
+  is_gui: true #是否启用响应监听
+  gui_interval_time: 5
+  gui_window_width: 720
+  gui_window_height: 420
+
+
+
+is_chain: true #是否进行全链路推理
+
+get_input:
+  response_interval_time: 30 #每次响应间隔时间
+  memory_length: 10 #截取多长的监听信息作为输入
+
+input_think: null
+
+think_action: null
+
+action_output: null
+
