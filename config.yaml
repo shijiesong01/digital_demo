@@ -12,7 +12,7 @@ message_get:
   is_text: true #是否启用响应监听
   text_send: 你好哈哈哈 #文本输入是否开启
   #摄像头
-  is_pic: true #是否启用响应监听
+  is_pic: false #是否启用响应监听
   pic_interval_time: 5 #间隔多少秒一次图像记录
   pic_window_width: 720 #窗口尺寸
   pic_window_height: 520
@@ -31,8 +31,13 @@ message_get:
 is_chain: true #是否进行全链路推理
 
 get_input:
-  response_interval_time: 30 #每次响应间隔时间
-  memory_length: 10 #截取多长的监听信息作为输入
+  response_interval_time: 15 #每次响应间隔时间
+  get_length: 10 #截取多长的监听信息作为输入
+  #性格
+  character: 乐于接收新事物，充满好奇 #自定义的性格
+  #记忆
+  short_memory_length: 2 #短期记忆长度
+  long_memory_update_num: 5 #last_content容量，即每多少轮对话更新一次长期记忆
 
 input_think: null
 

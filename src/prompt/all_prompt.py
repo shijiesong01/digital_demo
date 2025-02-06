@@ -36,3 +36,10 @@ Prompt_think_action_default = '''
 
 当前场景：
 '''
+
+Prompt_long_memory_default = '''
+请基于以下短期记忆，用最通俗的语言总结出这段记忆的内容核心，只概况最核心内容，不要说任何其他无关信息。
+例如：
+短期记忆：[text:我想爬山, pic:null, voice:明天出去如何]
+总结：对方想去爬山，可能想明天去
+'''

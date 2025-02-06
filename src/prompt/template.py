@@ -20,7 +20,7 @@ def template_deepseek(inputch, prompt_category):
 '''
     #3
     else:
-        prompt = all_prompt.Prompt_Input_think_default
+        prompt = all_prompt.Prompt_input_think_default
         contents = f'''
 记忆：{inputch.content['long_history']}。{inputch.content['short_history']}
 对话：{inputch.content['talk']}
@@ -35,3 +35,26 @@ def template_deepseek(inputch, prompt_category):
     return result
 
 
+
+def template_long_memory(inputch, prompt_category):
+    # 基于不同的入参选择不同的prompt封装成template
+    # 1
+    if prompt_category == 'prompt_long_memory_default':
+        prompt = all_prompt.Prompt_long_memory_default
+        contents = f'''
+短期记忆：{inputch.content['long_history']}
+    '''
+
+    # 3
+    else:
+        prompt = all_prompt.Prompt_long_memory_default
+        contents = f'''
+短期记忆：{inputch.content['long_history']}
+总结：'''
+
+    # 将信息写进适配的格式中
+    result = [
+        {"role": "system", "content": prompt},
+        {"role": "user", "content": contents},
+    ]
+    return result

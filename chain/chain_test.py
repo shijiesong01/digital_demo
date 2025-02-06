@@ -9,6 +9,7 @@ from EmoAIra.forward_module.think_action import think_action
 
 def response_chain(config_data, messagech, response_interval_time):
     is_chain = config_data['is_chain']
+    inputch = get_input.InputCh() #创建一个新的结构体
     while is_chain:
         time.sleep(response_interval_time)
         #1.加载配置
@@ -17,7 +18,7 @@ def response_chain(config_data, messagech, response_interval_time):
         config_think_action = config_data['think_action']
         config_action_output = config_data['action_output']
         #2.创建推理结果的存储实例
-        inputch = get_input.InputCh()
+        inputch.update(config_get_input)
         #3.前向推理
         get_input.Get_input_default(config_get_input, messagech, inputch)
         input_think.Input_think_default(config_input_think, inputch)
