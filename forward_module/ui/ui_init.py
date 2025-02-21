@@ -59,7 +59,7 @@ def init_ui_tkinter(ch, config):
         # （1）打开摄像头
         cap = cv2.VideoCapture(0)
         if not cap.isOpened():
-            print("无法打开摄像头")
+            print("监听进程error-----无法打开摄像头")
             return
         start_time_pic = time.time() #用于做计时工具
         try:
@@ -67,7 +67,7 @@ def init_ui_tkinter(ch, config):
                 #（2）实时读取画面
                 ret, frame_pic = cap.read()
                 if not ret:
-                    print("无法读取摄像头画面")
+                    print("监听进程error-----无法读取摄像头画面")
                     break
 
                 #（3）将画面展示到前端
@@ -89,10 +89,10 @@ def init_ui_tkinter(ch, config):
         finally:
             # （5）释放摄像头资源
             cap.release()
-            print("摄像头已关闭")
+            print("监听进程-----摄像头已关闭")
     # 1.3 在一个新线程中运行摄像头更新函数，避免阻塞Tkinter主事件循环
     threading.Thread(target=update_camera, daemon=True).start()
-    print('摄像头画面监听已挂起')
+    print('监听进程-----摄像头画面监听已挂起')
 
     ###
     # 2.屏幕界面读取模块
@@ -131,10 +131,10 @@ def init_ui_tkinter(ch, config):
             finally:
                 # （5）释放资源
                 sct.close()
-                print("屏幕监控已关闭")
+                print("监听进程-----屏幕监控已关闭")
     # 2.3 在一个新线程中运行屏幕捕获函数，避免阻塞Tkinter主事件循环
     threading.Thread(target=update_screen, daemon=True).start()
-    print('屏幕画面监听已挂起')
+    print('监听进程-----屏幕画面监听已挂起')
 
     # ###
     # # 3.音频接收模块
@@ -226,7 +226,7 @@ def init_ui_tkinter(ch, config):
             message_get.listen_text(ch, config,input_text)
     button = tk.Button(root, text="提交", command=on_button_click)
     button.pack(pady=10)
-    print('文本输入框监听已挂起')
+    print('监听进程-----文本输入框监听已挂起')
 
 
     # 进入主事件循环

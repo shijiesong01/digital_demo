@@ -10,7 +10,7 @@ if __name__ == '__main__':
     # 1.读取配置
     ###
     # 打开并读取YAML文件
-    print("----------step1:准备初始化----------")
+    print("----------step1:开始初始化----------")
     with open('config.yaml', 'r', encoding='utf-8') as file:
         config_data = yaml.safe_load(file)
     print('程序启动-----成功读取yaml')

@@ -9,9 +9,8 @@ from EmoAIra.src.llm import llm_api
 def Input_think_default(config, inputch):
     #step1.生成完整的prompt
     input = template.template_deepseek(inputch, 'Prompt_input_think_default')
-    print("input:", input)
     #step2.调用llm推理并计入inputch中
     inputch.content['input_think'] = llm_api.llm_deepseek(input)
-    print('-----step3.2:思考理解模块-----','\ninput:',input,'\ninputch[input_think]:',inputch.content['input_think'])
-
+    print('推理思考-----input:',input)
+    print('推理思考-----inputch[input_think]:',inputch.content['input_think'])
 

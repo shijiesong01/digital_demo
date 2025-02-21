@@ -55,8 +55,6 @@ def extract_and_format(content, get_length):
 
 #默认方法
 def Get_input_default(config, messagech, inputch):
-    print('-----step3.1:输入梳理模块-----','\n监听信息:', messagech.content)
-
     ###
     #stpe1.提取messagech模块
     ###
@@ -78,5 +76,9 @@ def Get_input_default(config, messagech, inputch):
         feel = ''
 
     inputch.content['mood'] = character.update_Character(config, feel)
+
+    print('输入梳理-----messagech:', messagech.content)
+    print('输入梳理-----inputch[talk]:', inputch.content['talk'])
+    print('输入梳理-----inputch[mood]:', inputch.content['mood'])
 
 

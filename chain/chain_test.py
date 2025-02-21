@@ -33,7 +33,7 @@ def Chain_test(config_data, unity_connection):
     ###
     config_message_get = config_data['message_get']
     config_get_input = config_data['get_input']
-    print("----------step2:挂起监听进程----------")
+    print("----------step2:开始循环链路----------")
     ###
     # 2.创建监听结果的存储实例
     ###
