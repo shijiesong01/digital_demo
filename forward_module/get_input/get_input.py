@@ -58,11 +58,7 @@ def Get_input_default(config, messagech, inputch):
     print('-----step3.1:输入梳理模块-----')
     print('监听信息:', messagech.content)
 
-    if inputch.last_content != []:
-        feel = inputch.last_content[-1]['feel'] #加载上一轮的感受，指导本轮的性格
 
-    else:
-        feel = ''
 
     ###
     #stpe1.提取messagech模块
@@ -79,6 +75,11 @@ def Get_input_default(config, messagech, inputch):
     ###
     #step3.性格调取模块
     ###
+    if 'feel' in inputch.last_content[-1]:
+        feel = inputch.last_content[-1]['feel'] #加载上一轮的感受，指导本轮的性格
+    else:
+        feel = ''
+
     inputch.content['mood'] = character.update_Character(config, feel)
 
 

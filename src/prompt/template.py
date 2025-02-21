@@ -7,7 +7,7 @@ def template_deepseek(inputch, prompt_category):
     if prompt_category == 'Prompt_input_think_default':
         prompt = all_prompt.Prompt_input_think_default
         contents = f'''
-记忆：{inputch.content['long_history']}。{inputch.content['short_history']}
+记忆：{inputch.content['long_memory']}。{inputch.content['short_memory']}
 对话：{inputch.content['talk']}
 心情：{inputch.content['mood']} 
 '''
