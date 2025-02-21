@@ -1,9 +1,10 @@
 ###
 #本文件中包含了信息接收的所有方法
 ###
+from datetime import datetime
 import threading
 import time
-
+import os
 import cv2
 import utils
 import yaml
@@ -41,14 +42,41 @@ def listen_text(ch, config, input_text):
         ch.content.append('text: ' + input_text)
         print("Message_get->Text thread processed,", 'text: ' + input_text)
 
-# 监听pic变量的线程函数
-def listen_pic(ch, config, pic):
-    #pic.show()
-    if ch.system != "off": #非off时才监听
-        # ch.content.append('pic: ' + pic)
-        # print("Message_get->Pic thread processed,", 'pic: ' + pic)
-        pass
 
+
+def listen_pic(ch, config, pic):
+    if ch.system != "off":  # 非off时才监听
+        # 确保保存路径存在
+        save_path = config['pic_save_path']
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+        try:
+            # 获取当前时间并格式化为 年-月-日_时-分-秒
+            current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            file_name = f"{current_time}.png"
+            full_path = os.path.join(save_path, file_name)
+            # 保存图片
+            pic.save(full_path)
+            print(f"监听进程-----摄像头图片已成功保存到 {full_path}")
+        except Exception as e:
+            print(f"监听进程-----保存摄像头图片时出现错误: {e}")
+
+def listen_gui(ch, config, gui):
+    if ch.system != "off":  # 非off时才监听
+        # 确保保存路径存在
+        save_path = config['gui_save_path']
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+        try:
+            # 获取当前时间并格式化为 年-月-日_时-分-秒
+            current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            file_name = f"{current_time}.png"
+            full_path = os.path.join(save_path, file_name)
+            # 保存图片
+            gui.save(full_path)
+            print(f"监听进程-----gui图片已成功保存到 {full_path}")
+        except Exception as e:
+            print(f"监听进程-----保存gui图片时出现错误: {e}")
 
 # 监听voice变量的线程函数
 def listen_voice(audio_data,voice_area,config):
@@ -65,12 +93,6 @@ def listen_voice(audio_data,voice_area,config):
     except sr.RequestError as e:
         print(f"请求错误：{e}")
 
-def listen_gui(ch, config, gui):
-    #gui.show()
-    if ch.system != "off": #非off时才监听
-        # ch.content.append('gui: ' + gui)
-        # print("Message_get->Gui thread processed,", 'gui: ' + gui)
-        pass
 
 #默认方法
 def Message_get_default(config, messagech):

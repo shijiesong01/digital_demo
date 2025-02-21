@@ -55,10 +55,7 @@ def extract_and_format(content, get_length):
 
 #默认方法
 def Get_input_default(config, messagech, inputch):
-    print('-----step3.1:输入梳理模块-----')
-    print('监听信息:', messagech.content)
-
-
+    print('-----step3.1:输入梳理模块-----','\n监听信息:', messagech.content)
 
     ###
     #stpe1.提取messagech模块

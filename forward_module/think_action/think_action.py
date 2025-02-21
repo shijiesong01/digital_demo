@@ -6,10 +6,8 @@ from EmoAIra.src.llm import llm_api
 import re
 # 默认方法
 def Think_action_default(config, inputch):
-    print('-----step3.3:行为决策模块-----')
     #step1.生成完整的prompt
     input = template.template_deepseek(inputch, 'Prompt_think_action_default')
-    print("input:", input)
 
     #step2.调用llm推理
     think_action = llm_api.llm_deepseek(input)
@@ -26,8 +24,5 @@ def Think_action_default(config, inputch):
     inputch.content['feel'] = feel_match.group(1).strip() if feel_match else ''
     inputch.content['emotion'] = emotion_match.group(1).strip() if emotion_match else ''
     inputch.content['action'] = action_match.group(1).strip() if action_match else ''
+    print('-----step3.3:行为决策模块-----','\ninput:',input,'\ninputch[say]:',inputch.content['say'],'\ninputch[feel]:',inputch.content['feel'],'\ninputch[emotion]:',inputch.content['emotion'],'\ninputch[action]:',inputch.content['action'])
 
-    print("inputch[say]:",inputch.content['say'])
-    print("inputch[feel]:",inputch.content['feel'])
-    print("inputch[emotion]:",inputch.content['emotion'])
-    print("inputch[action]:",inputch.content['action'])

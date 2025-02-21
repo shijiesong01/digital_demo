@@ -3,7 +3,7 @@ import subprocess
 import time
 
 
-def live2unity():
+def live2d_unity_init():
     server_socket = None
     connection = None
     try:
@@ -47,7 +47,7 @@ def live2unity():
 
 
 
-def update_move(connection, move):
+def live2d_unity_update(connection, move):
     if connection and connection.fileno() != -1:  # 检查套接字是否有效
         try:
             # 发送动作参数给 Unity
@@ -65,13 +65,13 @@ def update_move(connection, move):
 
 
 
-# 触发 live2unity 函数
-connection = live2unity()
+# # 触发 live2unity 函数
+# connection = live2d_unity_init()
 
-if connection:
-    print('goooooood')
-    time.sleep(10)
-    # 触发更新函数，发送动作参数 'Q'
-    update_move(connection, 'proud')
-    # 触发更新函数，发送动作参数 'W'
-    #update_move(connection, 'thinking')
+# if connection:
+#     print('goooooood')
+#     time.sleep(10)
+#     # 触发更新函数，发送动作参数 'Q'
+#     live2d_unity_update(connection, 'proud')
+#     # 触发更新函数，发送动作参数 'W'
+#     #update_move(connection, 'thinking')

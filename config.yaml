@@ -1,6 +1,9 @@
 
 main:
   chain: chain_test #选择的链路
+  live2d_unity_system: true
+  clear_log_history_pic: true #是否每次重启时清空日志
+  clear_log_history_gui: true #是否每次重启时清空日志
 
 message_get:
   system: on #整个监听系统开启或关闭，on or off
@@ -12,26 +15,28 @@ message_get:
   is_text: true #是否启用响应监听
   text_send: 你好哈哈哈 #文本输入是否开启
   #摄像头
-  is_pic: false #是否启用响应监听
-  pic_interval_time: 5 #间隔多少秒一次图像记录
-  pic_window_width: 720 #窗口尺寸
-  pic_window_height: 520
+  is_pic: true #是否启用响应监听
+  pic_interval_time: 20 #间隔多少秒一次图像记录
+  pic_window_width: 540 #窗口尺寸 pic&gui: 27寸720:520：420，24寸540:390:315
+  pic_window_height: 390
+  pic_save_path: log/history/message_get/pic
   #声音
   is_voice: false #是否启用响应监听
   voice_interval_time: 10 #每隔多少秒做一轮语音识别（语音转文本）
 
   #屏幕
   is_gui: true #是否启用响应监听
-  gui_interval_time: 5
-  gui_window_width: 720
-  gui_window_height: 420
+  gui_interval_time: 16
+  gui_window_width: 540
+  gui_window_height: 315
+  gui_save_path: log/history/message_get/gui
 
 
 
 is_chain: true #是否进行全链路推理
 
 get_input:
-  response_interval_time: 15 #每次响应间隔时间
+  response_interval_time: 5 #每次响应间隔时间
   get_length: 10 #截取多长的监听信息作为输入
   #性格
   character: 乐于接收新事物，充满好奇 #自定义的性格

@@ -17,7 +17,7 @@ def short_memory_update(config, last_content):
 def long_memory_update(config, inputch):
 
     # step1.生成完整的prompt
-    input = template.template_long_memory(inputch, 'Prompt_long_memory_default')
+    input = template.template_deepseek(inputch, 'Prompt_long_memory_default')
     print("memory_input:", input)
 
     # step2.调用llm推理并将长期记忆更新增加
