@@ -21,10 +21,10 @@ def live2d_unity_init():
         # 监听连接
         server_socket.listen(1)
 
-        print('Waiting for a connection...')
+        print('程序启动-----等待unity端连接...')
         connection, client_address = server_socket.accept()
 
-        print(f'Connection from {client_address}')
+        print(f'程序启动-----成功连接unity： {client_address}')
 
         # 发送初始消息给 Unity
         initial_message = "Initial message from Python"
@@ -32,12 +32,12 @@ def live2d_unity_init():
 
         # 等待 Unity 的响应（可选）
         data = connection.recv(1024)
-        print(f'Received from Unity: {data.decode()}')
+        print(f'程序启动-----接收到Unity回复: {data.decode()}')
 
         return connection
 
     except Exception as e:
-        print(f"Error during connection: {e}")
+        print(f"程序启动error-----Error during connection: {e}")
         if connection:
             connection.close()
     finally:
@@ -56,12 +56,12 @@ def live2d_unity_update(connection, move):
 
             # 等待 Unity 的响应（可选）
             data = connection.recv(1024)
-            print(f'Received from Unity after sending move: {data.decode()}')
+            print(f'动作输出-----在发送动作后得到Unity回复: {data.decode()}')
         except Exception as e:
-            print(f"Error sending move data: {e}")
+            print(f"动作输出error-----Error sending move data: {e}")
             connection.close()
     else:
-        print("Invalid socket connection.")
+        print("动作输出error-----Invalid socket connection.")
 
 
 

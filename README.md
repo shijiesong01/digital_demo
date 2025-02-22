@@ -2,51 +2,45 @@
 
 
 ## Table of Contents
+- [项目概述](#项目概述)
+- [环境配置](#环境配置)
+- [Usage](#使用方法)
+- [项目结构](#项目结构)
+- [贡献者](#贡献者)
 
-- [Development Environment](#development-environment)
-- [Install](#install)
-- [Usage](#usage)
-- [File/Folder Description](#filefolder-description)
-- [Calibration Algorithms](#calibration-algorithms)
-- [References](#references)
-- [Releases](#releases)
-- [Maintainers](#maintainers)
-- [Contributing](#contributing)
-- [License](#license)
+## 项目概述
+[零音]是一款更前沿的AI Vtuber数字人直播框架，其在具有通用特性的基础上，更加追求拟人程度和灵活性。
 
+项目的结构如下图所示：
 
-
-## Development Environment
+![](pics/项目结构.png)
 
 
-## Install
+## 环境配置
+新建一个项目环境
+```
+conda create -n lingyin python=3.10
+```
+进入环境
+```
+conda activate lingyin
+```
 
+```
+pip install -r requirements.txt
+```
 
-
-## Usage
-
-
-
-## File/Folder Description
-
-
-
-## Calibration Algorithms
-
-
-
-## References
-
-
-## Releases
-
-
-## Maintainers
-
-
-## Contributing
+## 使用方法
 
 
 
-## License
+## 项目结构
+
+
+## 
+
+
+## 贡献者
+宋世杰、陶世杰、蔡琰凯
+
 

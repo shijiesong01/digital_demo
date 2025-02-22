@@ -27,7 +27,7 @@ def response_chain(config_data, messagech, response_interval_time, unity_connect
 
 
 def Chain_test(config_data, unity_connection):
-    print('进入执行逻辑chain_test')
+    print('程序启动-----进入执行逻辑chain_test')
     ###
     # 1. 读取配置
     ###

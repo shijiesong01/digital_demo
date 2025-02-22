@@ -79,7 +79,7 @@ if __name__ == '__main__':
             time.sleep(10)  # 服务主循环休眠，避免过度占用CPU
             #print(messagech.content)
     except KeyboardInterrupt:
-        print("Service stopped by user.")
+        print("程序结束-----Service stopped by user.")
 
 
 
