@@ -13,23 +13,25 @@ message_get:
 
   #文本
   is_text: true #是否启用响应监听
-  text_send: 你好哈哈哈 #文本输入是否开启
+
   #摄像头
   is_pic: true #是否启用响应监听
   pic_interval_time: 20 #间隔多少秒一次图像记录
   pic_window_width: 540 #窗口尺寸 pic&gui: 27寸720:520：420，24寸540:390:315
   pic_window_height: 390
   pic_save_path: log/history/message_get/pic
-  #声音
-  is_voice: false #是否启用响应监听
-  voice_interval_time: 10 #每隔多少秒做一轮语音识别（语音转文本）
-
   #屏幕
   is_gui: true #是否启用响应监听
   gui_interval_time: 16
   gui_window_width: 540
   gui_window_height: 315
   gui_save_path: log/history/message_get/gui
+  #麦克风音频
+  is_micro: false
+  micro_interval_time: 10 #每隔多少秒做一轮语音识别（语音转文本）
+  #电脑内音频
+  is_voice: false #是否启用响应监听
+  voice_interval_time: 10 #每隔多少秒做一轮语音识别（语音转文本）
 
 
 

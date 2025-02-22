@@ -40,7 +40,7 @@ class MessageCh:
 def listen_text(ch, config, input_text):
     if ch.system != "off": #非off时才监听
         ch.content.append('text: ' + input_text)
-        print("Message_get->Text thread processed,", 'text: ' + input_text)
+        print("监听进程-----文本:" + input_text)
 
 
 
@@ -57,9 +57,9 @@ def listen_pic(ch, config, pic):
             full_path = os.path.join(save_path, file_name)
             # 保存图片
             pic.save(full_path)
-            print(f"监听进程-----摄像头图片已成功保存到 {full_path}")
+            print(f"监听进程-----摄像头:图片已成功保存到 {full_path}")
         except Exception as e:
-            print(f"监听进程-----保存摄像头图片时出现错误: {e}")
+            print(f"监听进程error-----保存摄像头图片时出现错误: {e}")
 
 def listen_gui(ch, config, gui):
     if ch.system != "off":  # 非off时才监听
@@ -74,9 +74,9 @@ def listen_gui(ch, config, gui):
             full_path = os.path.join(save_path, file_name)
             # 保存图片
             gui.save(full_path)
-            print(f"监听进程-----gui图片已成功保存到 {full_path}")
+            print(f"监听进程-----GUI:图片已成功保存到 {full_path}")
         except Exception as e:
-            print(f"监听进程-----保存gui图片时出现错误: {e}")
+            print(f"监听进程error-----保存gui图片时出现错误: {e}")
 
 # 监听voice变量的线程函数
 def listen_voice(audio_data,voice_area,config):
