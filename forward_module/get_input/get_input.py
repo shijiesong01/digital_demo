@@ -61,7 +61,7 @@ def Get_input_default(config, messagech, inputch):
     ###
     inputch.content['talk'] = extract_and_format(messagech.content, get_length=config['get_length'])
     #提取后删除messagech板块的历史内容
-    print('输入梳理-----messagech:', messagech)
+    print('输入梳理-----messagech:', messagech.content, messagech.see)
     messagech.content = []
 
     ###

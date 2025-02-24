@@ -9,8 +9,8 @@ def update_Character(config, feel):
     '''
     character = config["character"]
     if feel != '':
-        mood = '性格：' + character + '， 感受：' + feel
+        mood = character + '， 感受：' + feel
     else:
-        mood = '性格：' + character
+        mood = character
 
     return mood

@@ -1,6 +1,6 @@
 
 main:
-  chain: chain_test #选择的链路
+  chain: chain_llm #选择的链路
   live2d_unity_system: true
   clear_log_history_pic: true #是否每次重启时清空日志
   clear_log_history_gui: true #是否每次重启时清空日志
@@ -45,6 +45,8 @@ get_input:
   #记忆
   short_memory_length: 1 #短期记忆长度
   long_memory_update_num: 5 #last_content容量，即每多少轮对话更新一次长期记忆
+
+input_action: null
 
 input_think: null
 

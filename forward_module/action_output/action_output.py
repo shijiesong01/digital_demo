@@ -8,7 +8,7 @@ def Action_output_default(config, inputch, unity_connection):
     ###
     # 1. live2d输出
     ###
-    if unity_connection != None and inputch.content['feel']!= None:
+    if unity_connection != None and inputch.content['emotion']!= None:
         # 如果对上了unity中的动作参数，则触发更新函数，发送动作参数
         if inputch.content['emotion'] == '微笑':
             live2d.live2d_unity_update(unity_connection, 'proud')

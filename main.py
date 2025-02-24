@@ -69,7 +69,7 @@ if __name__ == '__main__':
     if chain_name == "chain_test":
         chain_test.Chain_test(config_data, unity_connection)
     elif chain_name == "chain_llm":
-        chain_llm.Chain_llm(config_data)
+        chain_llm.Chain_llm(config_data,unity_connection)
 
     ###
     # 5.无限循环确保进程的进行

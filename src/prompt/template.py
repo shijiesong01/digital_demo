@@ -13,8 +13,8 @@ def template_deepseek(inputch, prompt_category):
         prompt = all_prompt.Prompt_input_think_default
         contents = f'''
 记忆：{inputch.content['long_memory']}。{inputch.content['short_memory']}
-对话：{inputch.content['talk']}
 心情：{inputch.content['mood']} 
+听到：{inputch.content['talk']}
 '''
     #2
     elif prompt_category == 'Prompt_think_action_default':
@@ -36,8 +36,8 @@ def template_deepseek(inputch, prompt_category):
         prompt = all_prompt.Prompt_input_think_default
         contents = f'''
 记忆：{inputch.content['long_memory']}。{inputch.content['short_memory']}
-对话：{inputch.content['talk']}
 心情：{inputch.content['mood']} 
+听到：{inputch.content['talk']}
 '''
 
     #将信息写进适配的格式中
@@ -52,17 +52,25 @@ def template_qwen_vl(inputch, prompt_category):
         prompt = all_prompt.Prompt_input_think_vl
         contents = f'''
 {prompt}
-记忆：{inputch.content['long_memory']}。{inputch.content['short_memory']}
-听到：{inputch.content['talk']}
+记忆：{inputch.content['long_memory']}{inputch.content['short_memory']}
 心情：{inputch.content['mood']} 
+听到：{inputch.content['talk']}
+'''
+    elif prompt_category == 'Prompt_input_action_vl':
+        prompt = all_prompt.Prompt_input_action_vl
+        contents = f'''
+{prompt}
+记忆：{inputch.content['long_memory']}{inputch.content['short_memory']}
+心情：{inputch.content['mood']} 
+听到：{inputch.content['talk']}
 '''
     else:
         prompt = all_prompt.Prompt_input_think_default
         contents = f'''
 {prompt}
 记忆：{inputch.content['long_memory']}{inputch.content['short_memory']}
-听到：{inputch.content['talk']}
 心情：{inputch.content['mood']} 
+听到：{inputch.content['talk']}
 '''
     return contents
 
