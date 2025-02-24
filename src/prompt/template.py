@@ -24,18 +24,18 @@ def template_deepseek(inputch, prompt_category):
 心情：{inputch.content['mood']}
 '''
 
-    #3
+    #3 长期记忆更新：此处输入是前几段的inputch信息
     elif prompt_category == 'Prompt_long_memory_default':
         prompt = all_prompt.Prompt_long_memory_default
         contents = f'''
-短期记忆：{inputch.content['long_history']}
+短期记忆：{inputch}
 '''
 
     #0
     else:
         prompt = all_prompt.Prompt_input_think_default
         contents = f'''
-记忆：{inputch.content['long_history']}。{inputch.content['short_history']}
+记忆：{inputch.content['long_memory']}。{inputch.content['short_memory']}
 对话：{inputch.content['talk']}
 心情：{inputch.content['mood']} 
 '''
@@ -47,5 +47,22 @@ def template_deepseek(inputch, prompt_category):
     ]
     return result
 
-
+def template_qwen_vl(inputch, prompt_category):
+    if prompt_category == 'Prompt_input_think_vl':
+        prompt = all_prompt.Prompt_input_think_vl
+        contents = f'''
+{prompt}
+记忆：{inputch.content['long_memory']}。{inputch.content['short_memory']}
+听到：{inputch.content['talk']}
+心情：{inputch.content['mood']} 
+'''
+    else:
+        prompt = all_prompt.Prompt_input_think_default
+        contents = f'''
+{prompt}
+记忆：{inputch.content['long_memory']}{inputch.content['short_memory']}
+听到：{inputch.content['talk']}
+心情：{inputch.content['mood']} 
+'''
+    return contents
 

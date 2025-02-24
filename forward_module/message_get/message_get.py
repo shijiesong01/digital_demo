@@ -22,7 +22,7 @@ class MessageCh:
     def __init__(self, system='on'):
         self.system = system
         self.content = []
-
+        self.see = ''
     def __getitem__(self):
         return self.content
 
@@ -39,7 +39,7 @@ class MessageCh:
 ###
 def listen_text(ch, config, input_text):
     if ch.system != "off": #非off时才监听
-        ch.content.append('text: ' + input_text)
+        ch.content.append(' ' + input_text)
         print("监听进程-----文本:" + input_text)
 
 
@@ -54,9 +54,11 @@ def listen_pic(ch, config, pic):
             # 获取当前时间并格式化为 年-月-日_时-分-秒
             current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
             file_name = f"{current_time}.png"
-            full_path = os.path.join(save_path, file_name)
+            full_path = f'{save_path}//{file_name}'
             # 保存图片
             pic.save(full_path)
+            # 更新当前所见的图像
+            ch.see = full_path
             print(f"监听进程-----摄像头:图片已成功保存到 {full_path}")
         except Exception as e:
             print(f"监听进程error-----保存摄像头图片时出现错误: {e}")
@@ -74,6 +76,8 @@ def listen_gui(ch, config, gui):
             full_path = os.path.join(save_path, file_name)
             # 保存图片
             gui.save(full_path)
+            # 更新当前所见的图像
+            ch.see = full_path
             print(f"监听进程-----GUI:图片已成功保存到 {full_path}")
         except Exception as e:
             print(f"监听进程error-----保存gui图片时出现错误: {e}")

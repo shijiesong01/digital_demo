@@ -16,12 +16,12 @@ message_get:
 
   #摄像头
   is_pic: true #是否启用响应监听
-  pic_interval_time: 20 #间隔多少秒一次图像记录
+  pic_interval_time: 12 #间隔多少秒一次图像记录
   pic_window_width: 540 #窗口尺寸 pic&gui: 27寸720:520：420，24寸540:390:315
   pic_window_height: 390
   pic_save_path: log/history/message_get/pic
   #屏幕
-  is_gui: true #是否启用响应监听
+  is_gui: false #是否启用响应监听
   gui_interval_time: 16
   gui_window_width: 540
   gui_window_height: 315
@@ -38,12 +38,12 @@ message_get:
 is_chain: true #是否进行全链路推理
 
 get_input:
-  response_interval_time: 5 #每次响应间隔时间
+  response_interval_time: 20 #每次响应间隔时间
   get_length: 10 #截取多长的监听信息作为输入
   #性格
   character: 乐于接收新事物，充满好奇 #自定义的性格
   #记忆
-  short_memory_length: 2 #短期记忆长度
+  short_memory_length: 1 #短期记忆长度
   long_memory_update_num: 5 #last_content容量，即每多少轮对话更新一次长期记忆
 
 input_think: null

@@ -20,12 +20,13 @@ class InputCh:
 
     def update(self, config):
         self.last_content.append(self.content) #内容更新
+        #每次更新时固定更新长期记忆和短期记忆
         self.content = {'long_memory':self.last_content[-1]['long_memory'], 'short_memory':memory.short_memory_update(config, self.last_content)}
         self.response_num += 1 #对话轮数增加
 
         # 达到某对话轮数后，启一个进程自动更新长期记忆
         if self.response_num % config['long_memory_update_num'] == 0:
-            threading.Thread(target=memory.long_memory_update, args=(config, self),daemon=True).start()
+            threading.Thread(target=memory.long_memory_update, args=(config['long_memory_update_num'], self),daemon=True).start()
 
         # 记忆长度超过某对话轮数后，记忆滚动
         if len(self.last_content) > config['long_memory_update_num']:
@@ -42,7 +43,7 @@ def extract_and_format(content, get_length):
         extracted_content = content
     else:
         start_index = text_indices[-get_length]
-        # 提取从倒数第二个'text'开始到最后的内容
+        # 提取从倒数第x个'text'开始到最后的内容
         extracted_content = content[start_index:]
     # 格式化内容
     formatted_content = []
@@ -56,16 +57,17 @@ def extract_and_format(content, get_length):
 #默认方法
 def Get_input_default(config, messagech, inputch):
     ###
-    #stpe1.提取messagech模块
+    #stpe1.talk信息：提取messagech模块
     ###
     inputch.content['talk'] = extract_and_format(messagech.content, get_length=config['get_length'])
     #提取后删除messagech板块的历史内容
+    print('输入梳理-----messagech:', messagech)
     messagech.content = []
 
     ###
-    #step2.记忆加载模块
+    #step2.see信息：提取messagech模块中所见的路径
     ###
-    # 已在update()中更新
+    inputch.content['see'] = messagech.see
 
     ###
     #step3.性格调取模块
@@ -77,8 +79,10 @@ def Get_input_default(config, messagech, inputch):
 
     inputch.content['mood'] = character.update_Character(config, feel)
 
-    print('输入梳理-----messagech:', messagech.content)
     print('输入梳理-----inputch[talk]:', inputch.content['talk'])
+    print('输入梳理-----inputch[see]:', inputch.content['see'])
     print('输入梳理-----inputch[mood]:', inputch.content['mood'])
+    print('输入梳理-----inputch[long_memory]:', inputch.content['long_memory'])
+    print('输入梳理-----inputch[short_memory]:', inputch.content['short_memory'])
 
 

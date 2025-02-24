@@ -1,7 +1,7 @@
 import os
 
 from openai import OpenAI
-
+import base64
 
 
 def llm_deepseek(input):
@@ -15,8 +15,11 @@ def llm_deepseek(input):
     )
     return response.choices[0].message.content
 
+def encode_image(image_path):
+    with open(image_path, "rb") as image_file:
+        return base64.b64encode(image_file.read()).decode("utf-8")
 
-def llm_qwen_vl(input):
+def llm_qwen_vl(input, image):
     client = OpenAI(api_key="sk-3ca2b792e48f4422bc8ff8bd3ea53da9",base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",)
 
     completion = client.chat.completions.create(
@@ -24,12 +27,14 @@ def llm_qwen_vl(input):
         # 此处以qwen-vl-plus为例，可按需更换模型名称。模型列表：https://help.aliyun.com/zh/model-studio/getting-started/models
         messages=[{"role": "user", "content": [
             {"type": "text", "text": input},
-            {"type": "image_url",
-             "image_url": {"url": "https://dashscope.oss-cn-beijing.aliyuncs.com/images/dog_and_girl.jpeg"}}
+            {"type": "image_url","image_url": {"url": f"data:image/png;base64,{encode_image(image)}"}}
         ]}]
     )
     #print(completion.model_dump_json())
     return completion.choices[0].message.content
+
+
+#"image_url": {"url": "https://dashscope.oss-cn-beijing.aliyuncs.com/images/dog_and_girl.jpeg"}}
 
 if __name__ == '__main__':
     an = llm_qwen_vl('图里是什么，用最最简单的词汇描述这张图')

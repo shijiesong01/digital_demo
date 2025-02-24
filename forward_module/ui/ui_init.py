@@ -33,18 +33,13 @@ def init_ui_streamlit():
         # 获取输入框的文本
         text = st.session_state.text_input
         # 显示获取的文本
-        st.write("输入的文本为：", text)
+        st.write("监听进程-----输入的文本为：", text)
 
 
 def init_ui_tkinter(ch, config):
     #创建主窗口
     root = tk.Tk()
     root.title("emoaira监听入口")
-
-    ###
-    # 0.线程模块
-    ###
-
 
     ###
     # 1.摄像头读取模块
