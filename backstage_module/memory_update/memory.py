@@ -1,5 +1,5 @@
-from EmoAIra.src.prompt import template
-from EmoAIra.src.llm import llm_api
+from src.prompt.template import *
+from src.llm.llm_api import *
 
 
 def short_memory_update(config, last_content):
@@ -25,9 +25,9 @@ def long_memory_update(long_memory_update_num, inputch):
         {key: value for key, value in item.items() if key not in ['long_memory', 'short_memory']}
         for item in inputch.last_content
     ]
-    input = template.template_deepseek(filtered_content[-long_memory_update_num:], 'Prompt_long_memory_default')
+    input = template_deepseek(filtered_content[-long_memory_update_num:], 'Prompt_long_memory_default')
     # step2.调用llm推理并将长期记忆更新增加
-    long_memory = llm_api.llm_deepseek(input)
+    long_memory = llm_deepseek(input)
     inputch.content['long_memory'] =  inputch.content['long_memory'] + long_memory #增加内容
     print("记忆更新-----memory_input:", input)
     print("记忆更新-----inputch[long_memory]:", inputch.content['long_memory'])

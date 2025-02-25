@@ -1,11 +1,11 @@
 import threading
 import time
 
-from EmoAIra.forward_module.action_output import action_output
-from EmoAIra.forward_module.message_get import message_get
-from EmoAIra.forward_module.get_input import get_input
-from EmoAIra.forward_module.input_think import input_think
-from EmoAIra.forward_module.think_action import think_action
+from forward_module.action_output import action_output
+from forward_module.message_get import message_get
+from forward_module.get_input import get_input
+from forward_module.input_think import input_think
+from forward_module.think_action import think_action
 
 def response_chain(config_data, messagech, response_interval_time, unity_connection):
     is_chain = config_data['is_chain']

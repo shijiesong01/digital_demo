@@ -2,8 +2,8 @@
 # 本文件中包含了理解思考的所有方法
 ###
 
-from EmoAIra.src.prompt import template
-from EmoAIra.src.llm import llm_api
+from src.prompt import template
+from src.llm import llm_api
 
 # 默认方法
 def Input_think_default(config, inputch):

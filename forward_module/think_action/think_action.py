@@ -1,16 +1,16 @@
 ###
 # 本文件中包含了决策动作的所有方法
 ###
-from EmoAIra.src.prompt import template
-from EmoAIra.src.llm import llm_api
+from src.prompt.template import *
+from src.llm.llm_api import *
 import re
 # 默认方法
 def Think_action_default(config, inputch):
     #step1.生成完整的prompt
-    input = template.template_deepseek(inputch, 'Prompt_think_action_default')
+    input = template_deepseek(inputch, 'Prompt_think_action_default')
 
     #step2.调用llm推理
-    think_action = llm_api.llm_deepseek(input)
+    think_action = llm_deepseek(input)
     #print("think_action:",think_action)
 
     #step3.解析器提取相应信息

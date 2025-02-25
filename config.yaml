@@ -27,7 +27,7 @@ message_get:
   gui_window_height: 315
   gui_save_path: log/history/message_get/gui
   #麦克风音频
-  is_micro: false
+  is_micro: true
   micro_interval_time: 10 #每隔多少秒做一轮语音识别（语音转文本）
   #电脑内音频
   is_voice: false #是否启用响应监听

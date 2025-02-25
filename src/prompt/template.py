@@ -2,7 +2,7 @@
 # 该代码实现了 针对不同场景进行不同prompt-template的拼接
 ###
 
-from EmoAIra.src.prompt import all_prompt
+from src.prompt import all_prompt
 
 # 适配deepseek的封装方法
 def template_deepseek(inputch, prompt_category):

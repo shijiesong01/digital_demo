@@ -3,8 +3,8 @@
 ###
 import threading
 
-from EmoAIra.backstage_module.character_update import character
-from EmoAIra.backstage_module.memory_update import memory
+from backstage_module.character_update.character import *
+from backstage_module.memory_update.memory import *
 
 class InputCh:
     def __init__(self):
@@ -21,12 +21,12 @@ class InputCh:
     def update(self, config):
         self.last_content.append(self.content) #内容更新
         #每次更新时固定更新长期记忆和短期记忆
-        self.content = {'long_memory':self.last_content[-1]['long_memory'], 'short_memory':memory.short_memory_update(config, self.last_content)}
+        self.content = {'long_memory':self.last_content[-1]['long_memory'], 'short_memory':short_memory_update(config, self.last_content)}
         self.response_num += 1 #对话轮数增加
 
         # 达到某对话轮数后，启一个进程自动更新长期记忆
         if self.response_num % config['long_memory_update_num'] == 0:
-            threading.Thread(target=memory.long_memory_update, args=(config['long_memory_update_num'], self),daemon=True).start()
+            threading.Thread(target=long_memory_update, args=(config['long_memory_update_num'], self),daemon=True).start()
 
         # 记忆长度超过某对话轮数后，记忆滚动
         if len(self.last_content) > config['long_memory_update_num']:
@@ -77,7 +77,7 @@ def Get_input_default(config, messagech, inputch):
     else:
         feel = ''
 
-    inputch.content['mood'] = character.update_Character(config, feel)
+    inputch.content['mood'] = update_Character(config, feel)
 
     print('输入梳理-----inputch[talk]:', inputch.content['talk'])
     print('输入梳理-----inputch[see]:', inputch.content['see'])

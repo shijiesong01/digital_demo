@@ -1,14 +1,14 @@
 import threading
 import time
 
-from EmoAIra.forward_module.action_output import action_output
-from EmoAIra.forward_module.message_get import message_get
-from EmoAIra.forward_module.get_input import get_input
-from EmoAIra.forward_module.input_action import input_action
+from forward_module.action_output.action_output import *
+from forward_module.message_get.message_get import *
+from forward_module.get_input.get_input import *
+from forward_module.input_action.input_action import *
 
 def response_chain(config_data, messagech, response_interval_time, unity_connection):
     is_chain = config_data['is_chain']
-    inputch = get_input.InputCh() #创建一个新的结构体
+    inputch = InputCh() #创建一个新的结构体
     while is_chain:
         time.sleep(response_interval_time)
         #1.加载配置
@@ -18,9 +18,9 @@ def response_chain(config_data, messagech, response_interval_time, unity_connect
         #2.创建推理结果的存储实例
         inputch.update(config_get_input)
         #3.前向推理
-        get_input.Get_input_default(config_get_input, messagech, inputch)
-        input_action.Input_action_default(config_input_action, inputch)
-        action_output.Action_output_default(config_action_output, inputch, unity_connection)
+        Get_input_default(config_get_input, messagech, inputch)
+        Input_action_default(config_input_action, inputch)
+        Action_output_default(config_action_output, inputch, unity_connection)
 
 
 def Chain_llm(config_data, unity_connection):
@@ -34,12 +34,12 @@ def Chain_llm(config_data, unity_connection):
     ###
     # 2.创建监听结果的存储实例
     ###
-    messagech = message_get.MessageCh(system=config_message_get['system']) #是否开启了监听
+    messagech = MessageCh(system=config_message_get['system']) #是否开启了监听
 
     ###
     # 3.同时挂起多个监听线程!
     ###
-    message_get.Message_get_default(config_message_get, messagech)
+    Message_get_default(config_message_get, messagech)
 
 
     ###

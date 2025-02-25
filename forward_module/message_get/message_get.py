@@ -1,17 +1,23 @@
 ###
 #本文件中包含了信息接收的所有方法
 ###
+import wave
 from datetime import datetime
 import threading
 import time
 import os
 import cv2
+import pyaudio
 import utils
+import webrtcvad
 import yaml
 import speech_recognition as sr
 import tkinter as tk
-from EmoAIra.forward_module.message_get import get_text,get_pic,get_voice,get_gui
-from EmoAIra.forward_module.ui import ui_start,ui_init
+
+from fontTools.misc.cython import returns
+
+from forward_module.ui.ui_init import *
+from forward_module.ui.ui_start import *
 
 ###
 # 输出（模拟结构体）
@@ -83,31 +89,87 @@ def listen_gui(ch, config, gui):
             print(f"监听进程error-----保存gui图片时出现错误: {e}")
 
 # 监听voice变量的线程函数
-def listen_voice(audio_data,voice_area,config):
-    # 初始化识别器
-    recognizer = sr.Recognizer()
-    try:
-        text = recognizer.recognize_google(audio_data, language='zh-CN')
-        print('text',text)
-        if text.strip():
-            voice_area.insert(tk.END, f"麦克风：{text}\n")
-            voice_area.see(tk.END)  # 自动滚动到底部
-    except sr.UnknownValueError:
-        print("无法识别语音")
-    except sr.RequestError as e:
-        print(f"请求错误：{e}")
+# ###
+# # 3.音频接收模块
+# ###
+stop_event = threading.Event()
+def listen_micro():
+    # 3.1 初始化VAD,用于切分是否人话
+    vad = webrtcvad.Vad()
+    # 设置 VAD 灵敏度，值为 1-3，3 最敏感
+    vad.set_mode(1)
+
+    # 3.2 设置音频参数并初始化 PyAudio，用于接收音频流
+    FORMAT = pyaudio.paInt16
+    CHANNELS = 1
+    RATE = 16000  # RATE 是音频采样率（单位：赫兹）1s内采样次数
+    CHUNK = 30  # CHUNK 表示从音频流中一次读取的样本数量（单位：毫秒）
+    p = pyaudio.PyAudio()
+    # 打开音频流
+    stream = p.open(format=FORMAT,
+                    channels=CHANNELS,
+                    rate=RATE,
+                    input=True,
+                    frames_per_buffer=CHUNK * RATE // 1000)
+    FRAME_DURATION_MS = 30
+    SILENCE_THRESHOLD = 40  # 静音帧数阈值
+    silence_frames = 0
+    is_speaking = False
+    audio_frames = []
+
+    # 3.3 不断读取音频流判断并判断是否说话，做语句切分
+    while not stop_event.is_set():
+        # 读取音频帧
+        data = stream.read(CHUNK * RATE // 1000)  # chunk=30指采30个1s的音频（1s内有rate个点），除以1000代表了每个date音频长度是0.03秒
+        # 检测当前帧是否为语音
+        is_speech = vad.is_speech(data, RATE)
+        # print(time.time())
+        if is_speech:  # 是语音
+            if not is_speaking:  # 如果没开始说话，那么开始
+                # 用户开始说话
+                is_speaking = True
+                print("监听进程-----检测到说话，开始记录...")
+            audio_frames.append(data)  # 开始记录音频
+            silence_frames = 0
+        else:  # 不是语音
+            if is_speaking:  # 如果是说话状态
+                silence_frames += 1  # 现在没说，因此安静时间+1
+                audio_frames.append(data)  # 也记录
+                if silence_frames > SILENCE_THRESHOLD:  # 安静太久，视为说完了
+                    # 用户停止说话
+                    is_speaking = False
+                    print("监听进程-----检测到静音，停止记录。")
+                    # 调用语音转文本函数
+                    # ASR(audio_frames)
+                    # 将音频保存为文件
+                    filename = f"log/history/message_get/micro/{int(time.time())}.wav"
+                    wf = wave.open(filename, 'wb')
+                    wf.setnchannels(CHANNELS)
+                    wf.setsampwidth(p.get_sample_size(FORMAT))
+                    wf.setframerate(RATE)
+                    wf.writeframes(b''.join(audio_frames))
+                    wf.close()
+                    print(f"音频已保存为 {filename}")
+                    # 清空音频帧，准备下一次记录
+                    audio_frames = []
+
 
 
 #默认方法
 def Message_get_default(config, messagech):
+    # 1.开启麦克风监听系统，不在前端显示音轨
+    # 创建一个 Event 对象，用于控制线程的运行
+    if config["is_micro"]:
+        threading.Thread(target=listen_micro, args=(), daemon=True).start()
+        print('监听进程-----麦克音频监听已挂起')
 
-    # 1.初始化数据库或UI界面
+    # 2.初始化数据库或UI界面
     def run_ui(config, messagech):
         ## 创建文本接收界面
         if config['ui_streamlit'] == True: #还得特定的streamlit run，因此废弃
-            ui_start.ui_start_streamlit(config)
+            ui_start_streamlit(config)
         elif config['ui_tkinter'] == True: #tkinter，包含is_text的文本输入监听
-            ui_init.init_ui_tkinter(messagech, config)
+            init_ui_tkinter(messagech, config)
     threading.Thread(target=run_ui, args=(config, messagech), daemon=True).start()
 
 

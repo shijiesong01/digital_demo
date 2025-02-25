@@ -2,7 +2,7 @@ import os
 import time
 import yaml
 from chain import chain_test,chain_llm
-from forward_module.action_output import live2d
+from forward_module.action_output.live2d import *
 
 
 if __name__ == '__main__':
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     ###
     if config_data['main']['live2d_unity_system']:
         # 触发 live2unity 函数
-        unity_connection = live2d.live2d_unity_init()
+        unity_connection = live2d_unity_init()
         print('程序启动-----成功启动live2d—unity')
     else:
         unity_connection = None

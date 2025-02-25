@@ -7,17 +7,10 @@ import pyaudio
 import streamlit as st
 import yaml
 import tkinter as tk
-from EmoAIra.forward_module.message_get import message_get
-from tkinter import ttk, scrolledtext
+from forward_module.message_get import message_get
 import threading
 from PIL import Image, ImageTk
-from faster_whisper import WhisperModel
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import speech_recognition as sr
-import whisper
-import sounddevice as sd
-
+import time
 
 ###
 # 因streamlit特殊的启动方式较为复杂，因此暂时废弃streamlit作为ui前端
@@ -131,83 +124,9 @@ def init_ui_tkinter(ch, config):
     threading.Thread(target=update_screen, daemon=True).start()
     print('监听进程-----屏幕画面监听已挂起')
 
-    # ###
-    # # 3.音频接收模块
-    # ###
-    # # 定义音频参数
-    # CHUNK = 1024
-    # FORMAT = pyaudio.paInt16
-    # CHANNELS = 1
-    # RATE = 16000
-    #
-    # # 创建一个滚动音频监听文本框
-    # voice_area = scrolledtext.ScrolledText(root, width=80, height=5, font=("Arial", 12))
-    # voice_area.pack(pady=5)
-    # # 创建一个Matplotlib图形用于显示音轨
-    # fig, ax = plt.subplots()
-    # line, = ax.plot(np.zeros(CHUNK))  # 初始化一个零值的音频波形
-    # ax.set_ylim(-32768, 32767)  # 设置y轴范围，对应16位音频的范围
-    # canvas = FigureCanvasTkAgg(fig, master=root)
-    # canvas_widget = canvas.get_tk_widget()
-    # canvas_widget.config(width=700, height=50)
-    # canvas_widget.pack(pady=5)
-    #
-    # ##################以下是方法：whisper############################
-    # audio_queue = queue.Queue()
-    # # 加载 Whisper 模型
-    # model = whisper.load_model("tiny")
-    # def audio_callback(in_data, frame_count, time_info, status):
-    #     """音频回调函数，将音频数据存入队列"""
-    #     mic_audio = np.frombuffer(in_data, dtype=np.int16)  # 对应数值
-    #     # 更新音轨图像
-    #     line.set_ydata(mic_audio)  # 更新音频波形数据
-    #     canvas.draw_idle()  # 重绘图形
-    #     canvas.flush_events()  # 处理图形事件
-    #
-    #     audio_queue.put(in_data)
-    #     return (in_data, pyaudio.paContinue)
-    #
-    # def record_audio():
-    #     """音频录制线程"""
-    #     p = pyaudio.PyAudio()
-    #     stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True,
-    #                     frames_per_buffer=CHUNK, stream_callback=audio_callback)
-    #     stream.start_stream()
-    #     #无限循环
-    #     while stream.is_active():
-    #         pass
-    #
-    #     stream.stop_stream()
-    #     stream.close()
-    #     p.terminate()
-    #
-    # def process_audio():
-    #     """音频处理线程，将音频数据转换为文本;;;;无法识别出，待修改 ！！！！"""
-    #     start_time_audio = time.time()
-    #     while True:
-    #         if not audio_queue.empty() and time.time() - start_time_audio >= config["voice_interval_time"]:
-    #             audio_data = audio_queue.get()
-    #             # 将音频数据转换为 NumPy 数组
-    #             audio_array = np.frombuffer(audio_data, dtype=np.int16)
-    #             # 确保 NumPy 数组是可写的
-    #             audio_array = np.copy(audio_array)
-    #             # 将音频数据转换为浮点型（归一化到 [-1, 1]）
-    #             audio_array = audio_array.astype(np.float32) / np.iinfo(np.int16).max
-    #             # 使用 Whisper 模型进行语音识别
-    #             result = model.transcribe(audio_array)
-    #             text = result["text"]
-    #             print("Recognized text:", text)
-    #             start_time_audio = time.time()
-    #
-    # # 在一个新线程中运行音频监听函数，避免阻塞 Tkinter 主事件循环
-    # threading.Thread(target=record_audio, daemon=True).start()
-    # print('音频监听已挂起')
-    # threading.Thread(target=process_audio, daemon=True).start()
-    # print('音频处理已挂起')
-
 
     ###
-    # 4.文本读取模块
+    # 3.文本读取模块
     ###
     #创建输入框
     entry = tk.Entry(root, width=100)

@@ -3,15 +3,15 @@
 ###
 import re
 
-from EmoAIra.src.prompt import template
-from EmoAIra.src.llm import llm_api
+from src.prompt.template import *
+from src.llm.llm_api import *
 
 # 默认方法
 def Input_action_default(config, inputch):
     #step1.生成完整的prompt
-    input = template.template_qwen_vl(inputch, 'Prompt_input_action_vl')
+    input = template_qwen_vl(inputch, 'Prompt_input_action_vl')
     #step2.调用llm推理并计入inputch中
-    inputch.content['input_action'] = llm_api.llm_qwen_vl(input,inputch.content['see'])
+    inputch.content['input_action'] = llm_qwen_vl(input,inputch.content['see'])
     #print('推理思考-----input:',input)
     print('推理全程-----inputch[input_action]:',inputch.content['input_action'])
 
