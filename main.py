@@ -61,7 +61,23 @@ if __name__ == '__main__':
                 print(f"程序启动-----已清空 {gui_file_path}路径下所有历史摄像头图片")
         else:
             print(f"程序启动error-----指定的路径 {gui_file_path} 不存在。")
-
+    # 判断是否清空历史麦克风记忆
+    if config_data['main']['clear_log_history_micro']:
+        micro_file_path = config_data['message_get']['micro_save_path']
+        # 检查路径是否存在
+        if os.path.exists(micro_file_path):
+            # 遍历指定路径下的所有文件和文件夹
+            for root, dirs, files in os.walk(micro_file_path):
+                for file in files:
+                    file_full_path = os.path.join(root, file)
+                    try:
+                        # 删除文件
+                        os.remove(file_full_path)
+                    except Exception as e:
+                        print(f"删除文件 {file_full_path} 时出错: {e}")
+                print(f"程序启动-----已清空 {micro_file_path}路径下所有历史麦克风音频")
+        else:
+            print(f"程序启动error-----指定的路径 {micro_file_path} 不存在。")
     ###
     # 4.获取链路名称并执行对应的链路
     ###

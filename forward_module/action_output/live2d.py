@@ -8,7 +8,7 @@ def live2d_unity_init():
     connection = None
     try:
         # 启动 Unity 服务（假设 Unity 项目打包成可执行文件）
-        unity_executable_path = "E:\code\\unity\\live-exe\live.exe"
+        unity_executable_path = "src\\unity\\live.exe"
         subprocess.Popen(unity_executable_path)
 
         # 创建一个 TCP/IP 套接字

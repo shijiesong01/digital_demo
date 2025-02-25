@@ -93,7 +93,7 @@ def listen_gui(ch, config, gui):
 # # 3.音频接收模块
 # ###
 stop_event = threading.Event()
-def listen_micro():
+def listen_micro(config):
     # 3.1 初始化VAD,用于切分是否人话
     vad = webrtcvad.Vad()
     # 设置 VAD 灵敏度，值为 1-3，3 最敏感
@@ -142,7 +142,8 @@ def listen_micro():
                     # 调用语音转文本函数
                     # ASR(audio_frames)
                     # 将音频保存为文件
-                    filename = f"log/history/message_get/micro/{int(time.time())}.wav"
+                    current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+                    filename = os.path.join(config['micro_save_path'], current_time)
                     wf = wave.open(filename, 'wb')
                     wf.setnchannels(CHANNELS)
                     wf.setsampwidth(p.get_sample_size(FORMAT))
@@ -160,7 +161,7 @@ def Message_get_default(config, messagech):
     # 1.开启麦克风监听系统，不在前端显示音轨
     # 创建一个 Event 对象，用于控制线程的运行
     if config["is_micro"]:
-        threading.Thread(target=listen_micro, args=(), daemon=True).start()
+        threading.Thread(target=listen_micro, args=(config,), daemon=True).start()
         print('监听进程-----麦克音频监听已挂起')
 
     # 2.初始化数据库或UI界面

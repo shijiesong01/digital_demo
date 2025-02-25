@@ -4,6 +4,7 @@ main:
   live2d_unity_system: true
   clear_log_history_pic: true #是否每次重启时清空日志
   clear_log_history_gui: true #是否每次重启时清空日志
+  clear_log_history_micro: true #是否每次重启时清空日志
 
 message_get:
   system: on #整个监听系统开启或关闭，on or off
@@ -29,6 +30,8 @@ message_get:
   #麦克风音频
   is_micro: true
   micro_interval_time: 10 #每隔多少秒做一轮语音识别（语音转文本）
+  micro_save_path: log/history/message_get/micro
+
   #电脑内音频
   is_voice: false #是否启用响应监听
   voice_interval_time: 10 #每隔多少秒做一轮语音识别（语音转文本）
